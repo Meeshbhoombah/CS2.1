@@ -6,10 +6,27 @@ def merge(items1, items2):
     and return a new list containing all items in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until one list is empty
-    # TODO: Find minimum item in both lists and append it to new list
-    # TODO: Append remaining items in non-empty list to new list
+    result = []
 
+    i, j = 0, 0
+    while i < len(items1) and j < len(items2):
+        if items1[i] < items2[j]:
+            result.append(items1[i])
+            i += 1
+        else:
+            result.append(items2[j])
+            j += 1
+
+    while i < len(items1):
+        result.append(items1[i])
+        i += 1
+
+    while j < len(items2):
+        result.append(items2[j])
+        j += 1
+
+    return result
+    
 
 def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
@@ -17,9 +34,17 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Split items list into approximately equal halves
     # TODO: Sort each half using any other sorting algorithm
     # TODO: Merge sorted halves into one list in sorted order
+    center = len(items) // 2
+
+    left = items[:center]
+    right = items[center:]
+
+    sorted(left)
+    sorted(right)
+
+    return merge(left, right)
 
 
 def merge_sort(items):
@@ -27,10 +52,15 @@ def merge_sort(items):
     sorting each recursively, and merging results into a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check if list is so small it's already sorted (base case)
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half by recursively calling merge sort
-    # TODO: Merge sorted halves into one list in sorted order
+    center = len(items) // 2
+
+    left = items[:center]
+    right = items[center:]
+
+    merge_sort(left)
+    merge_sort(right)
+
+    return merge(left, right)
 
 
 def partition(items, low, high):
