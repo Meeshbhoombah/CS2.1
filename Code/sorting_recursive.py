@@ -34,8 +34,6 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Sort each half using any other sorting algorithm
-    # TODO: Merge sorted halves into one list in sorted order
     center = len(items) // 2
 
     left = items[:center]
@@ -54,13 +52,39 @@ def merge_sort(items):
     TODO: Memory usage: ??? Why and under what conditions?"""
     center = len(items) // 2
 
+    if len(items) == 1:
+        return items
+
     left = items[:center]
     right = items[center:]
 
-    merge_sort(left)
-    merge_sort(right)
+    l2, r2 = merge_sort(left), merge_sort(right)
 
-    return merge(left, right)
+    return merge(l2, r2)
+
+
+def bucket_sort(items):
+    buckets = {}
+    maximum = 0
+    
+    for item in items:
+        try:
+            bucket = buckets[item // 10]
+            if bucket > maximum:
+                maximum = bucket
+
+            bucket.append(item)
+        except KeyError:
+            buckets[item // 10] = [item]
+
+    result = []
+    for i in range(0, maximum + 1):
+        bucket = buckets[i]
+        sorted(bucket)
+
+        result += bucket
+
+    return result
 
 
 def partition(items, low, high):
