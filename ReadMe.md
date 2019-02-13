@@ -21,10 +21,10 @@ Students will also write technical articles about these topics to deepen their u
 |   2   | Thursday, January 24  | [Divide-and-Conquer Recursion][]  |
 |   3   |  Tuesday, January 29  | [Recursive Sorting Algorithms][]  |
 |   4   | Thursday, January 31  | [Integer Sorting Algorithms][]    |
-|   5   |  Tuesday, February 5  | [Rotating Binary Search Trees][]  |
-|   6   | Thursday, February 7  | [Tries & K-ary Search Trees][]    |
+|   5   |  Tuesday, February 5  | [K-ary Search Trees & Tries][]    |
+|   6   | Thursday, February 7  | [Autocomplete Challenges][]       |
 |   7   |  Tuesday, February 12 | [Multiple Key Search Trees][]     |
-|   8   | Thursday, February 14 | Trees Project Assigned            |
+|   8   | Thursday, February 14 | [Rotating Binary Search Trees][]  |
 |   –   |  Tuesday, February 19 | *President's Day (Observed)*      |
 |   9   | Thursday, February 21 | Trees Project Code Review         |
 |  10   |  Tuesday, February 26 | [Priority Queues & Heaps][]       |
@@ -37,7 +37,8 @@ Students will also write technical articles about these topics to deepen their u
 [Recursive Sorting Algorithms]: Lessons/SortingRecursive.md
 [Integer Sorting Algorithms]: Lessons/SortingInteger.md
 [Rotating Binary Search Trees]: Lessons/RotatingTrees.md
-[Tries & K-ary Search Trees]: Lessons/MultipleKeyTrees.md
+[K-ary Search Trees & Tries]: Lessons/KaryTreesTries.md
+[Autocomplete Challenges]: Lessons/KaryTreesTries.md#Challenges
 [Multiple Key Search Trees]: Lessons/MultipleKeyTrees.md
 [Priority Queues & Heaps]: Lessons/Heaps.md
 
