@@ -32,7 +32,7 @@ class Trie(object):
                 root = root.children[char]
                 print("Found ", root.value)
             except KeyError:
-                root.children[char] = Node(char)
+                print(root.children[char] = Node(char))
                 root = root.children[char]
                 print("Created ", root.value)
 
