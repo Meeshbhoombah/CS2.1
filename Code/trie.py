@@ -5,8 +5,9 @@ class Node(object):
 
     def __init__(self, value):
         self.value = value
-        self.leaf = False
+        self.count = 1
         self.children = {}
+        self.ldata = None
     
 
 class Trie(object):
@@ -17,8 +18,6 @@ class Trie(object):
             word.lower()
             self.insert(word)
 
-        pprint(self.root.children)
-
 
     def insert(self, word):
         if word is None or len(word) < 1:
@@ -26,17 +25,16 @@ class Trie(object):
 
         root = self.root
 
-        pprint(word)
         for char in word:
             try:
                 root = root.children[char]
-                print("Found ", root.value)
+                root.count += 1
             except KeyError:
-                print(root.children[char] = Node(char))
-                root = root.children[char]
-                print("Created ", root.value)
+                node = Node(char)
+                root.children[char] = node
+                root = node 
 
-        root.leaf = True
+        root.ldata = word
 
 
     def delete(self, word):
@@ -44,13 +42,16 @@ class Trie(object):
 
         root = self.root
         for char in word:
+            prev = root
             root = root.children[char]
 
-            if root.children == 1:
-                wordl += root
+            if root.count == 1:
+                wordl += [root]
+                prev.children.pop(char)
+            else:
+                root.count -= 1
 
         for node in reversed(wordl):
-            print(node)
             del node
 
 
