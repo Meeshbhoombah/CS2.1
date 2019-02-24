@@ -9,13 +9,15 @@ class Node(object):
         self.children = {}
     
 
-class Autocomplete(object):
+class Trie(object):
     
     def __init__(self, corpus):
         self.root = Node("")
         for word in corpus:
             word.lower()
             self.insert(word)
+
+        pprint(self.root.children)
 
 
     def insert(self, word):
@@ -24,14 +26,17 @@ class Autocomplete(object):
 
         root = self.root
 
-        try:
-            for char in word:
-                try:
-                    root = root.children[char]
-                except KeyError:
-                    root = root.children[char] = Node(char)
-        except IndexError:
-            root.leaf = True
+        pprint(word)
+        for char in word:
+            try:
+                root = root.children[char]
+                print("Found ", root.value)
+            except KeyError:
+                root.children[char] = Node(char)
+                root = root.children[char]
+                print("Created ", root.value)
+
+        root.leaf = True
 
 
     def delete(self, word):
@@ -39,14 +44,15 @@ class Autocomplete(object):
 
         root = self.root
         for char in word:
-            root = root[char]
+            root = root.children[char]
 
-            if root.uses == 1:
+            if root.children == 1:
                 wordl += root
 
-        for node in wordl[::-1]:
+        for node in reversed(wordl):
+            print(node)
             del node
 
 
 if __name__ == "__main__":
-    a = Autocomplete(["ape", "apple", "drape", "can", "cannot"])
+    autocomplete = Trie(["ape", "apple", "drape", "can", "cannot"])
