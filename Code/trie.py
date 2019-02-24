@@ -7,7 +7,7 @@ class Node(object):
         self.value = value
         self.count = 1
         self.children = {}
-        self.ldata = None
+        self.data = None
     
 
 class Trie(object):
@@ -24,7 +24,6 @@ class Trie(object):
             raise ValueError("Cannot pass empty word into the Trie.")
 
         node = self.root
-
         for char in word:
             try:
                 node = node.children[char]
@@ -34,7 +33,7 @@ class Trie(object):
                 node.children[char] = n
                 node = n
 
-        node.ldata = word
+        node.data = word
 
 
     def delete(self, word):
@@ -52,10 +51,40 @@ class Trie(object):
                 node.count -= 1
 
         for node in reversed(wordl):
-            del n
+            del node
+
+
+    def  _collect(self, node):
+        """Recursively walks all possible paths to collect words starting at 
+        the given node."""
+#        print(node.value)
+        words = []
+
+        if node.data:
+            words += [node.data]
+            print(words)
+
+        children = node.children.keys()
+        if len(children) == 0:
+            return words
+           
+        for char in children:
+            words += self._collect(node.children[char])
+
 
     def search(self, prefix):
+        """Returns all words beginning with the given prefix."""
+        node = self.root
+        for char in prefix:
+            try:
+                node = node.children[char]
+            except KeyError:
+                break # return words up to the last found char
 
+        return self._collect(node)
 
+    
 if __name__ == "__main__":
     autocomplete = Trie(["ape", "apple", "drape", "can", "cannot"])
+    words = autocomplete.search("can")
+    print(words)
