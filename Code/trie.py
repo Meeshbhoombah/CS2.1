@@ -1,4 +1,5 @@
 
+import time
 from pprint import pprint
 
 class Node(object):
@@ -12,11 +13,13 @@ class Node(object):
 
 class Trie(object):
     
-    def __init__(self, corpus):
+    def __init__(self, corpus = None):
         self.root = Node("")
-        for word in corpus:
-            word.lower()
-            self.insert(word)
+
+        if corpus is not None:
+            for word in corpus:
+                word.lower()
+                self.insert(word)
 
 
     def insert(self, word):
@@ -57,12 +60,10 @@ class Trie(object):
     def  _collect(self, node):
         """Recursively walks all possible paths to collect words starting at 
         the given node."""
-#        print(node.value)
         words = []
 
         if node.data:
             words += [node.data]
-            print(words)
 
         children = node.children.keys()
         if len(children) == 0:
@@ -70,10 +71,14 @@ class Trie(object):
            
         for char in children:
             words += self._collect(node.children[char])
+        
+        return words
 
-
+    
     def search(self, prefix):
         """Returns all words beginning with the given prefix."""
+        prefix = prefix.lower()
+
         node = self.root
         for char in prefix:
             try:
@@ -85,6 +90,21 @@ class Trie(object):
 
     
 if __name__ == "__main__":
-    autocomplete = Trie(["ape", "apple", "drape", "can", "cannot"])
-    words = autocomplete.search("can")
-    print(words)
+    from autocomplete import get_lines
+    words = get_lines()
+
+    a, start_assembly_time = Trie(), time.time()
+    for word in words:
+        a.insert(word)
+
+    end_assembly_time = time.time()
+    print("Assembled trie in", end_assembly - start_assembly)
+
+    results, start_search = a.search("a"), time.time()
+    end_search = time.time()
+    
+    print("Completed search in", end_search - start_search)
+    pprint(results)
+
+
+
