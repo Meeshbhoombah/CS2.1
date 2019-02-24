@@ -23,36 +23,38 @@ class Trie(object):
         if word is None or len(word) < 1:
             raise ValueError("Cannot pass empty word into the Trie.")
 
-        root = self.root
+        node = self.root
 
         for char in word:
             try:
-                root = root.children[char]
-                root.count += 1
+                node = node.children[char]
+                node.count += 1
             except KeyError:
-                node = Node(char)
-                root.children[char] = node
-                root = node 
+                n = Node(char)
+                node.children[char] = n
+                node = n
 
-        root.ldata = word
+        node.ldata = word
 
 
     def delete(self, word):
         wordl = [] # nodes to be deleted
 
-        root = self.root
+        node = self.root
         for char in word:
-            prev = root
-            root = root.children[char]
+            parent = node
+            node = node.children[char]
 
-            if root.count == 1:
-                wordl += [root]
-                prev.children.pop(char)
+            if node.count == 1:
+                wordl += [node]
+                parent.children.pop(char)
             else:
-                root.count -= 1
+                node.count -= 1
 
         for node in reversed(wordl):
-            del node
+            del n
+
+    def search(self, prefix):
 
 
 if __name__ == "__main__":
