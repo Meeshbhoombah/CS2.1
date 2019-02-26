@@ -93,18 +93,16 @@ if __name__ == "__main__":
     from autocomplete import get_lines
     words = get_lines()
 
-    a, start_assembly_time = Trie(), time.time()
+    a, start_of_assembly = Trie(), time.time()
     for word in words:
         a.insert(word)
 
-    end_assembly_time = time.time()
-    print("Assembled trie in", end_assembly - start_assembly)
+    end_of_assembly = time.time()
+    print("Assembled trie in", end_of_assembly - start_of_assembly)
 
-    results, start_search = a.search("a"), time.time()
+    results, start_search = a.search("ass"), time.time()
     end_search = time.time()
     
     print("Completed search in", end_search - start_search)
-    pprint(results)
-
-
+    print(results[:10])
 
